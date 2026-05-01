@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste</title>
+    <link rel="stylesheet" href="p01261036baseStyle.css">
+</head>
+
+<body>
+
+<header>
+    <img src="p01261036_logo.png" alt="Logo" class="logo">
+    
+    <nav>
+        <a href="p01261036index.html">Home</a>
+        <a href="p01261036login.html">Login</a>
+    </nav>
+</header>
+
+<main>
+
+<div class="card">
+    <h2>Como você está se sentindo?</h2>
+
+    <div class="input-group">
+        <label>Emoção</label>
+        <select id="select_emocao">
+            <option value="raiva">Raiva</option>
+            <option value="tristeza">Tristeza</option>
+            <option value="medo">Medo</option>
+            <option value="nojo">Nojo</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Nível (1 a 100)</label>
+        <input type="text" id="input_nivel">
+    </div>
+
+    <button onclick="receber()">Receber Playlist</button>
+</div>
+
+<div class="card">
+    <div id="div_mensagem"></div>
+</div>
+
+</main>
+
+<footer>
+    <p>Feito por um aluno SPTech, para outros alunos SPTech</p>
+    <p>jefferson.watabe@sptech.school</p>
+</footer>
+
+</body>
+</html>
+
+<script>
+/* SEU SCRIPT ORIGINAL (SEM ALTERAÇÃO) */
+let listaTeste = ['musica1','musica2','musica3','musica4','musica5','musica6','musica7','musica8','musica9','musica10',
+'musica11','musica12','musica13','musica14','musica15','musica16','musica17','musica18','musica19','musica20',
+'musica21','musica22','musica23','musica24','musica25','musica26','musica27','musica28','musica29','musica30',
+'musica31','musica32','musica33','musica34','musica35','musica36','musica37','musica38','musica39','musica40',
+'musica41','musica42','musica43','musica44','musica45','musica46','musica47','musica48','musica49','musica50',
+'musica51','musica52','musica53','musica54','musica55','musica56','musica57','musica58','musica59','musica60',
+'musica61','musica62','musica63','musica64','musica65','musica66','musica67','musica68','musica69','musica70',
+'musica71','musica72','musica73','musica74','musica75','musica76','musica77','musica78','musica79','musica80',
+'musica81','musica82','musica83','musica84','musica85','musica86','musica87','musica88','musica89','musica90',
+'musica91','musica92','musica93','musica94','musica95','musica96','musica97','musica98','musica99','musica100'];
+
+for (let m = 0; m <= 100; m++) {
+    listaTeste.push("musica" + m);
+}
+
+function receber() {
+    let emocao = select_emocao.value;
+    let nivel = Number(input_nivel.value);
+
+    div_mensagem.innerHTML = "";
+
+    if (nivel < 1 || nivel > 100) {
+        alert('Digite um valor entre 1 e 100');
+        return;
+    }
+
+    div_mensagem.innerHTML += `
+        Você informou ${nivel}% de ${emocao}. <br>
+        Playlist sugerida:<br><br>
+    `;
+
+    for (let i = 0; i < nivel; i++) {
+        div_mensagem.innerHTML += listaTeste[i] + "<br>";
+    }
+}
+</script>
