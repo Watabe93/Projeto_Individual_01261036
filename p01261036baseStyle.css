@@ -19,10 +19,12 @@ body {
     );
 
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .logo {
-    height: 50px;
+    height: 45px;
     max-width: 200px;
     object-fit: contain;
 }
@@ -83,6 +85,7 @@ button:hover {
 }
 
 main {
+    flex: 1;
     padding: 40px 20px;
     max-width: 800px;
     margin: auto;
@@ -93,6 +96,10 @@ main {
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
+}
+
+.card h2 {
+    margin-bottom: 10px;
 }
 
 .input-group {
