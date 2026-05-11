@@ -153,6 +153,20 @@ main {
     border: none;
 }
 
+#div_mensagem {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.erro {
+    color: #ef4444;
+}
+
+.sucesso {
+    color: #22c55e;
+}
+
 footer {
     background-color: rgba(0, 0, 0, 0.7);
     text-align: center;

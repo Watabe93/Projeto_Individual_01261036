@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="p01261036baseStyle.css">
+    <link rel="stylesheet" href="p01261036dashboardStyle.css">
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<body>
+
+<header>
+    <img src="p01261036_logo.png" alt="Logo" class="logo">
+
+    <nav>
+        <a href="p01261036ferramentaCompleta.html">Ferramenta Completa</a>
+    </nav>
+
+    <div class="acoes">
+        <a href="p01261036index.html" class="btn secundario">Sair</a>
+    </div>
+</header>
+
+<main>
+
+    <div class="card">
+        <h1>Seu Histórico Emocional</h1>
+        <p>
+            Acompanhe os registros feitos durante seus testes emocionais.
+        </p>
+    </div>
+
+    <div class="card resumo-emocional">
+
+        <div>
+            <h3>Total de registros</h3>
+            <p id="totalRegistros">0</p>
+        </div>
+
+        <div>
+            <h3>Emoção mais frequente</h3>
+            <p id="emocaoFrequente">-</p>
+        </div>
+
+        <div>
+            <h3>Média emocional</h3>
+            <p id="mediaGeral">0%</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <h2>Níveis emocionais</h2>
+
+        <div class="grafico-area">
+            <canvas id="graficoEmocao"></canvas>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>Feito por um aluno SPTech, para outros alunos SPTech</p>
+    <p>jefferson.watabe@sptech.school</p>
+</footer>
+
+</body>
+</html>
+<script>
+
+let historico = JSON.parse(localStorage.getItem("historico")) || [];
+
+let soma = {
+    raiva: 0,
+    tristeza: 0,
+    medo: 0,
+    nojo: 0
+};
+
+let cont = {
+    raiva: 0,
+    tristeza: 0,
+    medo: 0,
+    nojo: 0
+};
+
+for (let i = 0; i < historico.length; i++) {
+
+    let e = historico[i];
+
+    if (soma[e.emocao] !== undefined) {
+        soma[e.emocao] += e.nivel;
+        cont[e.emocao]++;
+    }
+}
+
+let medias = [
+    cont.raiva ? soma.raiva / cont.raiva : 0,
+    cont.tristeza ? soma.tristeza / cont.tristeza : 0,
+    cont.medo ? soma.medo / cont.medo : 0,
+    cont.nojo ? soma.nojo / cont.nojo : 0
+];
+
+document.getElementById("totalRegistros").innerText = historico.length;
+
+let totalMedia =
+(
+    medias[0] +
+    medias[1] +
+    medias[2] +
+    medias[3]
+) / 4;
+
+document.getElementById("mediaGeral").innerText =
+totalMedia.toFixed(1) + "%";
+
+let maior = 0;
+let emocaoMaior = "-";
+
+for (let emocao in cont) {
+
+    if (cont[emocao] > maior) {
+        maior = cont[emocao];
+        emocaoMaior = emocao;
+    }
+}
+
+document.getElementById("emocaoFrequente").innerText =
+emocaoMaior;
+
+const ctx = document.getElementById('graficoEmocao');
+
+new Chart(ctx, {
+    type: 'bar',
+
+    data: {
+        labels: ['Raiva', 'Tristeza', 'Medo', 'Nojo'],
+
+        datasets: [{
+            label: 'Nível médio (%)',
+
+            data: medias,
+
+            backgroundColor: [
+                '#ef4444',
+                '#3b82f6',
+                '#a855f7',
+                '#22c55e'
+            ]
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100
+            }
+        }
+    }
+});
+
+</script>

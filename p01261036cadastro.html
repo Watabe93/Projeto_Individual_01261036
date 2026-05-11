@@ -7,13 +7,12 @@
 </head>
 
 <body>
-
 <header>
     <img src="p01261036_logo.png" alt="Logo" class="logo">
 
     <nav>
-        <a href="p01261036index.html">Home</a>
-        <a href="p01261036teste.html">Teste</a>
+        <a href="p01261036index.html">Página Inicial</a>
+        <a href="p01261036teste.html">Experimente a Ferramenta</a>
     </nav>
 
     <div class="acoes">
@@ -22,28 +21,34 @@
 </header>
 
 <main>
-
 <div class="card">
     <h2>Cadastro</h2>
 
     <div class="input-group">
         <label>Nome</label>
-        <input type="text">
+        <input placeholder="Seu nome" type="text" id="input_nome">
     </div>
 
     <div class="input-group">
-        <label>Email</label>
-        <input type="email">
+        <label>Email SPTech</label>
+        <input placeholder="Seu e-mail SPTech" type="email" id="input_email">
     </div>
 
     <div class="input-group">
         <label>Senha</label>
-        <input type="password">
+        <input placeholder="Mínimo 8 caracteres" type="password" id="input_senha">
     </div>
 
-    <button>Cadastrar</button>
-</div>
+    <div class="input-group">
+        <label>Confirmar senha</label>
+        <input placeholder="Confirme a senha" type="password" id="input_confirmarSenha">
+    </div>
 
+    <button onclick="cadastrar()">Cadastrar</button>
+
+    <div id="div_mensagem"></div>
+
+</div>
 </main>
 
 <footer>
@@ -53,3 +58,80 @@
 
 </body>
 </html>
+
+<script>
+
+function cadastrar() {
+
+    let nome = input_nome.value;
+    let email = input_email.value;
+    let senha = input_senha.value;
+    let confirmarSenha = input_confirmarSenha.value;
+
+    let mensagem = "";
+
+    if (
+        nome == "" ||
+        email == "" ||
+        senha == "" ||
+        confirmarSenha == ""
+    ) {
+
+        mensagem = "Preencha todos os campos.";
+
+        div_mensagem.innerHTML = mensagem;
+        return;
+    }
+
+    let emailSptech = email.endsWith("@sptech.school");
+
+    if (!emailSptech) {
+
+        mensagem = "Utilize um e-mail institucional SPTech.";
+
+        div_mensagem.innerHTML = mensagem;
+        return;
+    }
+
+    if (senha.length < 8) {
+
+        mensagem = "A senha precisa ter pelo menos 8 caracteres.";
+
+        div_mensagem.innerHTML = mensagem;
+        return;
+    }
+
+    let especiais = "!@#$%&*";
+
+    let possuiEspecial = false;
+
+    for (let i = 0; i < especiais.length; i++) {
+
+        if (senha.includes(especiais[i])) {
+
+            possuiEspecial = true;
+        }
+    }
+
+    if (!possuiEspecial) {
+
+        mensagem = "A senha precisa ter pelo menos 1 caractere especial.";
+
+        div_mensagem.innerHTML = mensagem;
+        return;
+    }
+
+    if (senha != confirmarSenha) {
+
+        mensagem = "As senhas não coincidem.";
+
+        div_mensagem.innerHTML = mensagem;
+        return;
+    }
+
+    mensagem = "Cadastro realizado com sucesso.";
+
+    div_mensagem.innerHTML = mensagem;
+}
+
+</script>
